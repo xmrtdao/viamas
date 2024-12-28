@@ -1,26 +1,20 @@
 import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
-import { addDays } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 interface DateSelectorProps {
   onDateSelect: (startDate: Date | undefined, endDate: Date | undefined) => void;
 }
 
 const DateSelector = ({ onDateSelect }: DateSelectorProps) => {
-  const [date, setDate] = useState<{
-    from: Date | undefined;
-    to: Date | undefined;
-  }>({
-    from: undefined,
-    to: undefined,
-  });
+  const [date, setDate] = useState<DateRange | undefined>();
 
   return (
     <Calendar
       mode="range"
       selected={date}
       onSelect={(newDate) => {
-        setDate(newDate ?? { from: undefined, to: undefined });
+        setDate(newDate);
         onDateSelect(newDate?.from, newDate?.to);
       }}
       disabled={{ before: new Date() }}

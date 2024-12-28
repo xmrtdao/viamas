@@ -4,7 +4,7 @@ import LocationCard from "@/components/LocationCard";
 import DateSelector from "@/components/DateSelector";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Bike, Calendar, Send } from "lucide-react";
+import { Bike, Calendar, MapPin, Send } from "lucide-react";
 
 const locations = [
   {
