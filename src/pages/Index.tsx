@@ -4,7 +4,7 @@ import LocationCard from "@/components/LocationCard";
 import DateSelector from "@/components/DateSelector";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Bike, Calendar, MapPin, Send } from "lucide-react";
+import { Bike, Calendar, MapPin, Send, CreditCard } from "lucide-react";
 
 const locations = [
   {
@@ -60,6 +60,21 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Header with Payment Link */}
+      <div className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-3 flex justify-end">
+          <a
+            href="https://crpay.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-primary hover:text-forest transition-colors"
+          >
+            <CreditCard className="w-5 h-5" />
+            <span>Make Payment</span>
+          </a>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div
         className="h-[60vh] bg-cover bg-center relative"
