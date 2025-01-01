@@ -80,7 +80,7 @@ const Index = () => {
         className="h-[60vh] bg-cover bg-center relative"
         style={{
           backgroundImage:
-            'url("https://images.unsplash.com/photo-1517022812141-23620dba5c23")',
+            'url("https://images.unsplash.com/photo-1500375592092-40eb2168fd21")',
         }}
       >
         <div className="absolute inset-0 bg-black/40" />
