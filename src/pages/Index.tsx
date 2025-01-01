@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import LocationCard from "@/components/LocationCard";
 import DateSelector from "@/components/DateSelector";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Bike, Calendar, MapPin, Send, CreditCard } from "lucide-react";
 
 const locations = [
@@ -37,19 +37,19 @@ const Index = () => {
   };
 
   const handleWhatsApp = () => {
-    if (!selectedLocation || !startDate || !endDate) {
+    if (!startDate || !endDate) {
       toast({
         title: "Missing Information",
-        description: "Please select both location and dates before proceeding.",
+        description: "Please select both start and end dates before proceeding.",
         variant: "destructive",
       });
       return;
     }
 
-    const message = `Hello! I would like to rent a bicycle in ${selectedLocation} from ${format(
+    const message = `Hola! Estoy interesado en alquilar una bicicleta. Quiero reservar para las fechas del ${format(
       startDate,
       "MMMM d, yyyy"
-    )} to ${format(endDate, "MMMM d, yyyy")}. Could you please provide me with availability and pricing information?`;
+    )} al ${format(endDate, "MMMM d, yyyy")}. ¿Podrías proporcionarme información sobre disponibilidad y precios?`;
 
     const encodedMessage = encodeURIComponent(message);
     window.open(
