@@ -12,9 +12,9 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1.5rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1320px'
 			}
 		},
 		extend: {
@@ -25,20 +25,21 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#059669',
-					foreground: '#ffffff'
+					DEFAULT: 'hsl(var(--primary))',
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
-					DEFAULT: '#F97316',
-					foreground: '#ffffff'
+					DEFAULT: 'hsl(var(--secondary))',
+					foreground: 'hsl(var(--secondary-foreground))'
 				},
 				accent: {
-					DEFAULT: '#0EA5E9',
-					foreground: '#ffffff'
+					DEFAULT: 'hsl(var(--accent))',
+					foreground: 'hsl(var(--accent-foreground))'
 				},
-				forest: {
-					DEFAULT: '#166534',
-					foreground: '#ffffff'
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -57,6 +58,14 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				}
 			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-hero': 'var(--gradient-hero)'
+			},
+			boxShadow: {
+				card: 'var(--shadow-card)',
+				elegant: 'var(--shadow-elegant)'
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
@@ -64,18 +73,17 @@ export default {
 			},
 			keyframes: {
 				'fade-up': {
-					'0%': {
-						opacity: '0',
-						transform: 'translateY(10px)'
-					},
-					'100%': {
-						opacity: '1',
-						transform: 'translateY(0)'
-					}
+					'0%': { opacity: '0', transform: 'translateY(12px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
+				},
+				'pulse-ring': {
+					'0%,100%': { opacity: '1' },
+					'50%': { opacity: '0.35' }
 				}
 			},
 			animation: {
-				'fade-up': 'fade-up 0.5s ease-out'
+				'fade-up': 'fade-up 0.45s ease-out',
+				'pulse-ring': 'pulse-ring 1.6s ease-in-out infinite'
 			}
 		}
 	},

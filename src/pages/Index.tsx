@@ -1,145 +1,50 @@
 import { useState } from "react";
-import { format } from "date-fns";
-import LocationCard from "@/components/LocationCard";
-import DateSelector from "@/components/DateSelector";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { Bike, Calendar, MapPin, Send, CreditCard } from "lucide-react";
-
-const locations = [
-  {
-    city: "Limón",
-    address: "Avenida Central, Limón Centro",
-  },
-  {
-    city: "San José",
-    address: "Calle 1, San Pedro",
-  },
-  {
-    city: "La Fortuna",
-    address: "200m Norte del Parque Central",
-  },
-  {
-    city: "Manuel Antonio",
-    address: "Plaza Vista Shopping Center",
-  },
-];
+import { Zap } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import BookingWidget from "@/components/BookingWidget";
+import HowItWorks from "@/components/HowItWorks";
+import PopularRoutes from "@/components/PopularRoutes";
+import { useLang } from "@/i18n/LanguageContext";
 
 const Index = () => {
-  const [selectedLocation, setSelectedLocation] = useState<string>();
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-  const { toast } = useToast();
+  const { t } = useLang();
+  const [prefill, setPrefill] = useState<{ from: string; to: string }>();
 
-  const handleDateSelect = (start: Date | undefined, end: Date | undefined) => {
-    setStartDate(start);
-    setEndDate(end);
-  };
-
-  const handleWhatsApp = () => {
-    if (!startDate || !endDate) {
-      toast({
-        title: "Missing Information",
-        description: "Please select both start and end dates before proceeding.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const message = `Hola! Estoy interesado en alquilar una bicicleta. Quiero reservar para las fechas del ${format(
-      startDate,
-      "MMMM d, yyyy"
-    )} al ${format(endDate, "MMMM d, yyyy")}. ¿Podrías proporcionarme información sobre disponibilidad y precios?`;
-
-    const encodedMessage = encodeURIComponent(message);
-    window.open(
-      `https://wa.me/50661500559?text=${encodedMessage}`,
-      "_blank"
-    );
+  const selectRoute = (from: string, to: string) => {
+    setPrefill({ from, to });
+    document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header with Payment Link */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-3 flex justify-end">
-          <a
-            href="https://crpay.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-primary hover:text-forest transition-colors"
-          >
-            <CreditCard className="w-5 h-5" />
-            <span>Make Payment</span>
-          </a>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <div
-        className="h-[60vh] bg-cover bg-center relative"
-        style={{
-          backgroundImage:
-            'url("https://images.unsplash.com/photo-1500375592092-40eb2168fd21")',
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white p-6 animate-fade-up">
-            <h1 className="text-5xl font-bold mb-4">
-              Explore Costa Rica on Two Wheels
-            </h1>
-            <p className="text-xl max-w-2xl mx-auto">
-              Discover the beauty of Costa Rica with our premium bicycle rental
-              service available in four stunning locations
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container mx-auto py-12 px-4">
-        {/* Locations Section */}
-        <section className="mb-12">
-          <div className="flex items-center gap-2 mb-6">
-            <MapPin className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Choose Your Location</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {locations.map((location) => (
-              <LocationCard
-                key={location.city}
-                city={location.city}
-                address={location.address}
-                onClick={() => setSelectedLocation(location.city)}
-              />
-            ))}
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main>
+        <section className="relative">
+          <img
+            src="https://images.unsplash.com/photo-1518259102261-b40117eabbc9?w=1920&q=70"
+            alt="Coastline road in Costa Rica"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-hero" />
+          <div className="container relative grid gap-10 py-16 lg:grid-cols-2 lg:items-center lg:py-24">
+            <div className="text-primary-foreground">
+              <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-medium backdrop-blur">
+                <Zap className="h-3.5 w-3.5 animate-pulse-ring" /> {t("hero.badge")}
+              </p>
+              <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{t("hero.title")}</h1>
+              <p className="mt-4 max-w-xl text-base opacity-90 sm:text-lg">{t("hero.subtitle")}</p>
+            </div>
+            <div id="quote">
+              <BookingWidget prefill={prefill} />
+            </div>
           </div>
         </section>
 
-        {/* Date Selection Section */}
-        <section className="mb-12">
-          <div className="flex items-center gap-2 mb-6">
-            <Calendar className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Select Your Dates</h2>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <DateSelector onDateSelect={handleDateSelect} />
-          </div>
-        </section>
-
-        {/* WhatsApp Button */}
-        <section className="text-center">
-          <Button
-            onClick={handleWhatsApp}
-            size="lg"
-            className="bg-primary hover:bg-forest text-white gap-2"
-          >
-            <Send className="w-5 h-5" />
-            Contact via WhatsApp
-          </Button>
-        </section>
-      </div>
+        <HowItWorks />
+        <PopularRoutes onSelect={selectRoute} />
+      </main>
+      <Footer />
     </div>
   );
 };
